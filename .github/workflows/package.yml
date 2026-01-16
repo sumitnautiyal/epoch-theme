@@ -4,16 +4,21 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Create Release Zip
-        run: zip -r epoch-light.zip . -x "*.git*" ".venv/*" "__pycache__/*"
-        
+        run: zip -r epoch-light.zip . -x "*.git*" ".venv/*" "__pycache__/*" ".DS_Store"
+
       - name: Publish Release
         uses: softprops/action-gh-release@v1
         with:
           files: epoch-light.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
