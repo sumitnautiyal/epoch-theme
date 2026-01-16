@@ -1,37 +1,56 @@
 import os
 from PIL import Image, ImageDraw
 
-def create_icon(size, filename):
-    # Theme Colors
-    # Foreground: Deep technical grey
-    color = "#2C2C2C" 
+# Configuration
+# Upscale factor for anti-aliasing (rendering at 4x then downsampling)
+SCALE_FACTOR = 4
+COLOR_PRIMARY = "#2C2C2C"
+COLOR_ACCENT = "#0B57D0"
+
+def generate_icon(size: int, filename: str) -> None:
+    """
+    Generates a theme icon using Lanczos resampling for high-fidelity edges.
+    Renders at (size * SCALE_FACTOR) and downsamples to target size.
+    """
+    canvas_size = size * SCALE_FACTOR
+    center = canvas_size / 2
     
-    # Create transparent canvas
-    img = Image.new('RGBA', (size, size), (255, 255, 255, 0))
+    # Initialize transparent canvas
+    img = Image.new('RGBA', (canvas_size, canvas_size), (255, 255, 255, 0))
     draw = ImageDraw.Draw(img)
     
-    # Draw the "Epoch" Node (Minimalist Circle)
-    padding = size * 0.1
-    shape = [padding, padding, size - padding, size - padding]
-    stroke_width = max(1, int(size * 0.08))
+    # Geometry Definitions (Relative to canvas size)
+    # 1. Outer Structure Ring
+    r1 = canvas_size * 0.45
+    draw.ellipse(
+        [center - r1, center - r1, center + r1, center + r1],
+        outline=COLOR_PRIMARY,
+        width=int(canvas_size * 0.12)
+    )
     
-    draw.ellipse(shape, outline=color, width=stroke_width)
+    # 2. Inner Focus Ring
+    r2 = canvas_size * 0.28
+    draw.ellipse(
+        [center - r2, center - r2, center + r2, center + r2],
+        outline=COLOR_ACCENT,
+        width=int(canvas_size * 0.08)
+    )
     
-    # Draw Center Focus Dot
-    center_radius = size * 0.15
-    center = [
-        (size/2) - center_radius, (size/2) - center_radius,
-        (size/2) + center_radius, (size/2) + center_radius
-    ]
-    draw.ellipse(center, fill=color)
+    # 3. Core Node
+    r3 = canvas_size * 0.12
+    draw.ellipse(
+        [center - r3, center - r3, center + r3, center + r3],
+        fill=COLOR_PRIMARY
+    )
 
-    # Output
-    if not os.path.exists('icons'):
-        os.makedirs('icons')
+    # Downsample and save
+    img = img.resize((size, size), resample=Image.LANCZOS)
     
-    img.save(f'icons/{filename}', 'PNG')
-    print(f"Generated {filename}")
+    output_dir = 'icons'
+    os.makedirs(output_dir, exist_ok=True)
+    img.save(os.path.join(output_dir, filename), 'PNG')
+    print(f"Generated asset: {filename}")
 
 if __name__ == "__main__":
-    create_icon(48, "icon-48.png")
-    create_icon(96, "icon-96.png")
+    generate_icon(48, "icon-48.png")
+    generate_icon(96, "icon-96.png")

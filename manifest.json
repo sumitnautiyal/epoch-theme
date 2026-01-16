@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "name": "Epoch Light",
   "description": "A minimalist, high-clarity theme for focused engineering. Part of the Epoch Suite by TheCSJourney.",
   "author": "Sumit Nautiyal",
@@ -8,10 +8,10 @@
     "48": "icons/icon-48.png",
     "96": "icons/icon-96.png"
   },
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
       "id": "epoch-light@thecsjourney.com",
-      "strict_min_version": "60.0"
+      "strict_min_version": "103.0"
     }
   },
   "theme": {
