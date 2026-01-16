@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "Epoch Light",
   "description": "A minimalist, high-clarity theme for focused engineering. Part of the Epoch Suite by TheCSJourney.",
   "author": "Sumit Nautiyal",
@@ -15,24 +15,27 @@
     }
   },
   "theme": {
+    "properties": {
+      "color_scheme": "light"
+    },
     "colors": {
-      "frame": "#F8F9FA",
-      "tab_background_text": "#5f6368",
+      "frame": "#E0E2E5", 
+      "tab_background_text": "#444746",
       "toolbar": "#FFFFFF",
-      "toolbar_text": "#202124",
+      "toolbar_text": "#1F1F1F",
       "toolbar_field": "#F1F3F4",
-      "toolbar_field_text": "#202124",
+      "toolbar_field_text": "#1F1F1F",
       "tab_line": "transparent",
-      "tab_loading": "#1a73e8",
+      "tab_loading": "#0B57D0",
       "tab_selected": "#FFFFFF",
-      "tab_background_separator": "#dadce0",
-      "icons": "#5f6368",
+      "tab_background_separator": "#E0E2E5",
+      "icons": "#444746",
       "popup": "#FFFFFF",
-      "popup_text": "#202124",
-      "popup_border": "#dadce0",
-      "sidebar": "#F8F9FA",
-      "sidebar_text": "#202124",
-      "sidebar_border": "#dadce0"
+      "popup_text": "#1F1F1F",
+      "popup_border": "#E0E2E5",
+      "sidebar": "#FFFFFF",
+      "sidebar_text": "#1F1F1F",
+      "sidebar_border": "#E0E2E5"
     }
   }
 }
